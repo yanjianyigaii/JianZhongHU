@@ -1,0 +1,59 @@
+﻿@model List<ImgWallForm>
+
+<div class="row">
+    @{
+        <table class="table table-striped" id="uploadtable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>TITLE</th>
+                    <th>DESCRIPTION</th>
+                    <th>IMAGE</th>
+                    <th>SUBMIT TIME</th>
+                    <th>STATUS</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model)
+                    {
+                        var description = string.IsNullOrEmpty(item.description) ? "" : item.description;
+                        <tr class="row-data">
+                            <td class="id">
+                                <input type="hidden" value="@item.id" />
+                                @item.id
+                            </td>
+                            <td class="title">@item.title</td>
+                            <td class="description">@description</td>
+                            <td class="imagepath"><img class="img-thumbnail" src="@item.imagepath" width="150" height="150" alt="img-description" /></td>
+                            <td class="submitTime">@Convert.ToDateTime(item.submitTime).ToString("M/d/yyyy HH:mm:ss")</td>
+                            <td>
+                                <input type="hidden" value="@item.approvedName" class="status" />
+                                <select class="form-control status-dropdown">
+                                    <option value="PENDING">PENDING</option>
+                                    <option value="APPROVED">APPROVED</option>
+                                    <option value="DENIED">DENIED</option>
+                                </select>
+                            </td>
+                            <td>
+                                <a class="btn btn-default act-delete">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<div class="modal fade" id="uploadAdminModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document" style="width: 400px;margin-top:30px;">
+        <div class="modal-content" style="background-color:#fff">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-img-admin"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
