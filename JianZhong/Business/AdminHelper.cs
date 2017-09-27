@@ -1,50 +1,78 @@
 ﻿using JianZhong.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
+
 
 namespace JianZhong.Business
 {
     public static class AdminHelper
     {
+        public const string endpoint = "http://jianzhonghuwebapi.net";
         public static List<ImgWallForm> GetUploadData()
         {
-            List<ImgWallForm> list = new List<ImgWallForm>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://jianzhonghuwebapi.net/api/image/");
+            request.Method = "GET";
+            request.ContentType = "application/json";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream receiveStream = response.GetResponseStream();
+            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
+            string result = readStream.ReadToEnd();
+            var images = JsonConvert.DeserializeObject<List<ImgWallForm>>(result);
+            return images;
+        }
 
-            string query =
-                "SELECT id, title, description, submitTime, submitUser, approved, imagePath" +
-                " FROM dbo.ImgWallForm";
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["ProjectDB"].ConnectionString))
+        public static bool PostUploadData(ImgWallForm imageData, HttpPostedFileBase image)
+        {
+            imageData.imagepath = image.FileName;
+            imageData.mimetype = image.ContentType;
+            imageData.size = image.ContentLength;
+
+            //save image to disk
+            if (image != null && image.ContentLength > 0)
             {
-                using (SqlCommand cmd = new SqlCommand(query, connection))
+                var stream = image.InputStream;
+                var fileName = image.FileName;
+                var path = Path.Combine(HttpContext.Current.Server.MapPath("~/Images"), fileName);
+                using (var fileStream = File.Create(path))
                 {
-                    connection.Open();
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        // Check is the reader has any rows at all before starting to read.
-                        if (reader.HasRows)
-                        {
-                            // Read advances to the next row.
-                            while (reader.Read())
-                            {
-                                ImgWallForm imgWallForm = new ImgWallForm();
-                                imgWallForm.id = reader.GetInt32(reader.GetOrdinal("id"));
-                                imgWallForm.title = reader.GetString(reader.GetOrdinal("title"));
-                                imgWallForm.description = reader.GetString(reader.GetOrdinal("description"));
-                                imgWallForm.approved = reader.GetBoolean(reader.GetOrdinal("approved"));
-                                imgWallForm.imagepath = reader.GetString(reader.GetOrdinal("imagePath"));
-                                list.Add(imgWallForm);
-                            }
-                        }
-                    }
+                    stream.CopyTo(fileStream);
                 }
             }
-            
 
-            return list;
+            string output = JsonConvert.SerializeObject(imageData);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://jianzhonghuwebapi.net/api/image/");
+            request.ContentType = "application/json; charset=utf-8";
+            request.Method = "POST";
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(output);
+                streamWriter.Flush();
+            }
+            try
+            {
+                var httpResponse = (HttpWebResponse)request.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

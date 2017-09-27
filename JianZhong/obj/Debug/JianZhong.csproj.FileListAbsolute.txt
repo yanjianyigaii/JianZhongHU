@@ -30,7 +30,6 @@ C:\Users\cyan\Desktop\Chen Files\JianZhong\JianZhong\bin\System.Web.Helpers.xml
 C:\Users\cyan\Desktop\Chen Files\JianZhong\JianZhong\bin\System.Web.Mvc.xml
 C:\Users\cyan\Desktop\Chen Files\JianZhong\JianZhong\obj\Debug\JianZhong.dll
 C:\Users\cyan\Desktop\Chen Files\JianZhong\JianZhong\obj\Debug\JianZhong.pdb
-C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\obj\Debug\JianZhong.csprojResolveAssemblyReference.cache
 C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\bin\roslyn\csc.exe
 C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -63,3 +62,5 @@ C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\bin\System.Web.Helpers.xm
 C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\bin\System.Web.Mvc.xml
 C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\obj\Debug\JianZhong.dll
 C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\obj\Debug\JianZhong.pdb
+C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\bin\Newtonsoft.Json.dll
+C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\bin\Newtonsoft.Json.xml
