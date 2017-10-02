@@ -64,3 +64,4 @@ C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\obj\Debug\JianZhong.dll
 C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\obj\Debug\JianZhong.pdb
 C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\bin\Newtonsoft.Json.dll
 C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\bin\Newtonsoft.Json.xml
+C:\Users\cyan\Desktop\Chen Files\JianZhongHU\JianZhong\obj\Debug\JianZhong.csprojResolveAssemblyReference.cache

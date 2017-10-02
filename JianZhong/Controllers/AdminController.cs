@@ -10,7 +10,7 @@ namespace JianZhong.Controllers
 {
     public class AdminController : Controller
     {
-        // GET: Home
+        // GET: Admin page
         public ActionResult Index()
         {
             return View();

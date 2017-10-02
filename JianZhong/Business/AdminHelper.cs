@@ -50,6 +50,7 @@ namespace JianZhong.Business
                 }
             }
 
+            //call web api to save the image data
             string output = JsonConvert.SerializeObject(imageData);
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://jianzhonghuwebapi.net/api/image/");
             request.ContentType = "application/json; charset=utf-8";
